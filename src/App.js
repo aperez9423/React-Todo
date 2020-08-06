@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styled from 'styled-components';
+
 import ToDoList from './ToDoList.js';
 import ToDoForm from './ToDoForm.js';
 
@@ -26,25 +28,25 @@ class App extends React.Component {
     };
   }
   // this component is going to take care of state, and any change handlers you need to work with your state
-  toggleItem = itemId => {
-    console.log(itemId);
+  toggleTask = taskId => {
+    console.log(taskId);
     this.setState({
-      todos:this.state.groceries.map(item => {
-        if(itemId === item.id){
+      todos: this.state.todos.map(task => {
+        if(taskId === task.id){
           return{
-            ...item,
-            completed: !item.completed
+            ...task,
+            completed: !task.completed
           };
         };
-        return item;
+        return task;
       })
     });
   };
 
-  addItem = item => {
+  addTask = task => {
     const newToDo = {
-      name: item,
-      id:Date.now(),
+      task: task,
+      id: Date.now(),
       completed: false
     };
     this.setState({
@@ -53,29 +55,44 @@ class App extends React.Component {
     });
   };
 
-  clearPurchased = e => {
+  clearCompleted = e => {
     e.preventDefault();
     this.setState({
-      todos: 
-      this.state.todos.filter(item => !item.completed)
+      todos: this.state.todos.filter(task => !task.completed)
     });
   };
 
   render() {
     return (
-      <div className='App'>
-        <div className='header'>
-          <h1>ToDo List</h1>
-          <ToDoForm addItem={this.addItem}/>
-        </div>
+      <AppContainer>
+        <Header>
+          <h1>To Do List</h1>
+          <ToDoForm addTask={this.addTask}/>
+        </Header>
         <ToDoList
           todos= {this.state.todos}
-          toggleItem={this.toggleItem}
-          clearPurchased={this.clearPurchased}
+          toggleTask={this.toggleTask}
+          clearCompleted={this.clearCompleted}
         />
-      </div>
+      </AppContainer>
     );
   };
 };
 
 export default App;
+
+const AppContainer = styled.div `
+  text-align: center;
+  margin: 1rem;
+`
+const Header = styled.div `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    text-align: left;
+    color: white;
+    font-size: 1.5rem;
+  }
+`
