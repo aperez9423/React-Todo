@@ -2,8 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import ToDoList from './ToDoList.js';
-import ToDoForm from './ToDoForm.js';
+import ToDoList from './components/ToDoList.js';
+import ToDoForm from './components/ToDoForm.js';
 
 const todos =[
   {
@@ -84,14 +84,17 @@ export default App;
 const AppContainer = styled.div `
   text-align: center;
   margin: 1rem;
+  background: rgba(128, 128, 128, 0.5);
 `
 const Header = styled.div `
   display: flex;
   justify-content: space-between;
   align-items: center;
+  opacity: 1;
 
   h1 {
     text-align: left;
+    padding-left: 2rem;
     color: white;
     font-size: 1.5rem;
   }
